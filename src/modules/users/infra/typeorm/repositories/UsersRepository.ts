@@ -5,7 +5,7 @@ import IUsersRepository from '@modules/users/repositories/IUsersRepository';
 
 import User from '../entities/User';
 
-class FakeUsersRepository implements IUsersRepository {
+class UsersRepository implements IUsersRepository {
   private ormRepository: Repository<User>;
 
   constructor() {
@@ -25,6 +25,14 @@ class FakeUsersRepository implements IUsersRepository {
 
     return user;
   }
+
+  public async findByEmail(email: string): Promise<User | undefined> {
+    const user = await this.ormRepository.findOne({
+      where: { email },
+    });
+
+    return user;
+  }
 }
 
-export default FakeUsersRepository;
+export default UsersRepository;
