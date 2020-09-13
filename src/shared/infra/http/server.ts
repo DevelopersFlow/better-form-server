@@ -1,10 +1,15 @@
-import express, { Request, Response } from 'express';
+import 'reflect-metadata';
+import express from 'express';
+
+import routes from './routes';
+
+import '@shared/infra/typeorm';
+import '@shared/container';
 
 const app = express();
 
-app.get('/', (request: Request, response: Response) => {
-  return response.json({ message: 'Hello BetterForm!' });
-});
+app.use(express.json());
+app.use(routes);
 
 app.listen(3333, () => {
   console.log('Server is running on port 3333!');
